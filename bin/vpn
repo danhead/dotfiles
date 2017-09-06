@@ -1,0 +1,28 @@
+#!/bin/bash
+
+OVPNURL=https://nordvpn.com/api/files/zip
+OVPNPATH=/home/dan/.openvpn
+OVPNAUTH=/home/dan/.nordvpnauth
+PROTO=tcp
+
+if [ "$1" == "--update" ] || [ "$1" == "-u" ]; then
+  echo "Updating..."
+  curl $OVPNURL > /tmp/nordvpn.zip
+  rm -f $OVPNPATH/*
+  unzip -qq /tmp/nordvpn.zip -d $OVPNPATH/
+  rm /tmp/nordvpn.zip
+  sed -i 's,auth-user-pass,auth-user-pass '"$OVPNAUTH"',g' $OVPNPATH/*
+  echo "Done."
+  exit 0
+elif [ "$1" == "--kill" ] || [ "$1" == "-k" ]; then
+  sudo killall openvpn
+else
+  find $OVPNPATH -name $1
+  find $OVPNPATH -name "*$1*$PROTO*" | sort -R | tail -1 | while read file; do
+    sudo killall openvpn
+    echo "Connecting to: $file"
+    sudo /usr/sbin/openvpn --config $file &
+  done 
+fi
+
+exit 0
