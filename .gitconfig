@@ -1,0 +1,28 @@
+# This is Git's per-user configuration file.
+[user]
+  name = Dan Head
+  email = me@danielhead.com
+
+[core]
+  editor = vim
+
+[color]
+  ui = true
+
+[merge]
+  tool = opendiff
+  renameLimit = 0
+
+[help]
+  autocorrect = 1
+
+[push]
+  default = current
+  followTags = true
+
+[pull]
+  rebase = true
+
+[fetch]
+  prune = true
+
