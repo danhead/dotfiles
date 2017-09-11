@@ -14,3 +14,29 @@ function android-backup() {
   filename=Full_Backup_$(date +%Y-%m-%d_%T).ab
   adb backup -f "${filename}" --twrp system cache data boot recovery --compress
 }
+function mountrepo() {
+  if [ -e /dev/md1 ]; then
+    sudo cryptsetup luksOpen /dev/md0 repo
+    if [ ! -d /mnt/repo ]; then
+      sudo mkdir /mnt/repo
+      sudo chown -hR dan:dan /mnt/repo
+    fi
+    sudo mount /dev/mapper/repo /mnt/repo
+    echo "/mnt/repo successfully unlocked and mounted"
+  else
+    echo "Device /dev/md0 not found"
+  fi
+}
+function unmountrepo() {
+  if [ -e /dev/md0 ]; then
+    if grep '/mnt/repo' /etc/mtab > /dev/null 2>&1; then
+      sudo umount -l /mnt/repo
+      sudo cryptsetup luksClose /dev/mapper/repo
+      echo "/mnt/repo successfully unmounted and locked"
+    else
+      echo "/mnt/repo is not mounted"
+    fi
+  else
+    echo "Device /dev/md0 not found"
+  fi
+}
