@@ -71,7 +71,7 @@ let g:airline_theme='tomorrow'
 let g:airline_powerline_fonts=1
 
 " Closetag
-let g:closetag_filenames = '*.hbs,*.html'
+let g:closetag_filenames = '*.hbs,*.html, *.js'
 
 " CtrlP
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
