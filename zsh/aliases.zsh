@@ -15,7 +15,7 @@ function android-backup() {
   adb backup -f "${filename}" --twrp system cache data boot recovery --compress
 }
 function mountrepo() {
-  if [ -e /dev/md1 ]; then
+  if [ -e /dev/md0 ]; then
     sudo cryptsetup luksOpen /dev/md0 repo
     if [ ! -d /mnt/repo ]; then
       sudo mkdir /mnt/repo
@@ -38,5 +38,45 @@ function unmountrepo() {
     fi
   else
     echo "Device /dev/md0 not found"
+  fi
+}
+alias dkr-clean="docker rm -f $(docker ps -aq) && docker rmi -f $(docker images -aq)"
+alias dkr-inspect="docker inspect --format '{{ .NetworkSettings.IPAddress }}' $1"
+
+function mktmpfs() {
+  if [ $# -eq 2 ]; then
+    if [ -e "$1" ]; then
+      echo "File/Folder ${1} already exists"
+    else
+      mkdir "$1"
+      sudo mount tmpfs "$1" -t tmpfs -o size="$2"
+      sudo chown -hR dan:dan $1
+    fi
+  else
+    echo "Create a temporary file system"
+    echo "e.g. mktmpfs ~/temp 32m"
+  fi
+}
+
+function wipetmpfs() {
+  if [ $# -eq 1 ]; then
+    if [ -e "$1" ]; then
+      if mount | grep "$1 type tmpfs" > /dev/null; then
+        read "REPLY?Are you sure you want to wipe $1? (Y/N) "
+        if [[ ! $REPLY =~ ^[Y]$ ]]; then
+          echo "Aborted"
+          return 1
+        else
+          sudo umount $1
+          rm -rf $1
+          echo "Wiped"
+        fi
+      fi
+    else
+      echo "There's nothing at $1"
+    fi
+  else
+    echo "Kill a temporary file system"
+    echo "e.g. killtmpfs ~/temp"
   fi
 }

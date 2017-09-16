@@ -50,6 +50,7 @@ Plugin 'alvan/vim-closetag'
 Plugin 'pangloss/vim-javascript'
 Plugin 'junegunn/goyo.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'styled-components/vim-styled-components'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
