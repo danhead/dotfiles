@@ -40,8 +40,8 @@ function unmountrepo() {
     echo "Device /dev/md0 not found"
   fi
 }
-alias dkr-clean="docker rm -f $(docker ps -aq) && docker rmi -f $(docker images -aq)"
-alias dkr-inspect="docker inspect --format '{{ .NetworkSettings.IPAddress }}' $1"
+#alias dkr-clean="docker rm -f $(docker ps -aq) && docker rmi -f $(docker images -aq)"
+#alias dkr-inspect="docker inspect --format '{{ .NetworkSettings.IPAddress }}' $1"
 
 function mktmpfs() {
   if [ $# -eq 2 ]; then
@@ -79,4 +79,9 @@ function wipetmpfs() {
     echo "Kill a temporary file system"
     echo "e.g. killtmpfs ~/temp"
   fi
+}
+
+function virtualenv_prompt_info(){
+  [[ -n ${VIRTUAL_ENV} ]] || return
+  echo "${ZSH_THEME_VIRTUALENV_PREFIX:=[}${VIRTUAL_ENV:t}${ZSH_THEME_VIRTUALENV_SUFFIX:=]}"
 }
