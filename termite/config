@@ -2,7 +2,6 @@
 font = Inconsolata-g 10
 
 [colors]
-
 # special
 foreground      = #daba8b
 foreground_bold = #daba8b
