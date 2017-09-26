@@ -1,6 +1,5 @@
 alias zshconfig="vim ~/.zshrc"
 alias wttr="curl wttr.in/~Brentwood+UK"
-alias phoenixfm="mpv 'http://hyades.shoutca.st:8555/stream'"
 alias cl="find . -type f -name '$1' | xargs wc -l"
 alias fif="find . -type f -print | xargs grep '$1'"
 alias hcf="sudo shutdown -h now"
@@ -53,4 +52,17 @@ function wipetmpfs() {
     echo "e.g. killtmpfs ~/temp"
   fi
 }
-
+function listen() {
+  case "$1" in
+    phoenixfm)
+      mplayer 'http://hyades.shoutca.st:8555/stream'
+      ;;
+    talksport)
+      mplayer 'https://radio.talksport.com/stream?awparams=platform:ts-web;&type=.flv&amsparams=playerid:ts-web;'
+      ;;
+  esac
+}
+alias rsync-copy="rsync -avz --progress -h"
+alias rsync-move="rsync -avz --progress -h --remove-source-files"
+alias rsync-update="rsync -avzu --progress -h"
+alias rsync-synchronize="rsync -avzu --delete --progress -h"
