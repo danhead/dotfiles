@@ -17,8 +17,8 @@ set expandtab
 set smarttab
 set shiftwidth=2
 set tabstop=4
-"set textwidth=80
-"set colorcolumn=81
+set textwidth=80
+set colorcolumn=81
 set backupcopy=yes
 
 filetype plugin indent on
