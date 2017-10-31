@@ -1,8 +1,8 @@
 #!/bin/bash
 
 OVPNURL=https://nordvpn.com/api/files/zip
-OVPNPATH=/home/dan/.openvpn
-OVPNAUTH=/home/dan/.nordvpnauth
+OVPNPATH=$HOME/.openvpn
+OVPNAUTH=$HOME/.nordvpnauth
 PROTO=tcp
 
 if [ "$1" == "--update" ] || [ "$1" == "-u" ]; then
