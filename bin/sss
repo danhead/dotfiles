@@ -1,0 +1,68 @@
+#!/bin/bash
+# Basic backup and restore to s3 bucket
+
+source ~/.sssrc
+
+if [ -z ${AWS_ACCESS_KEY_ID+x} ] || 
+  [ -z ${AWS_SECRET_ACCESS_KEY+x} ] ||
+  [ -z ${PASSPHRASE+x} ] ||
+  [ -z ${ENCRYPT_SIGN_KEY+x} ]; then
+  echo "Error: AWS config not found."
+  exit 1
+fi
+
+function backup() {
+  if [ -z ${1+x} ]; then
+    echo "No bucket provided."
+    exit 1
+  fi
+  if [ ! -d "$2" ]; then
+    echo "Folder $2 does not exist."
+    exit 1
+  fi
+  duplicity full \
+    --encrypt-sign-key "$ENCRYPT_SIGN_KEY" \
+    --s3-use-new-style \
+    --s3-european-buckets \
+    --progress \
+    "$2" "s3://s3-eu-west-1.amazonaws.com/$1/$2"
+}
+
+function restore() {
+  if [ -z ${1+x} ]; then
+    echo "No bucket provided."
+    exit 1
+  fi
+  if [ -z ${2+x} ]; then
+    echo "No Folder provided."
+    exit 1
+  fi
+  DEST=$3
+  if [ -z ${3+x} ]; then
+    DEST=$2
+  fi
+  duplicity restore \
+    --progress \
+    "s3://s3-eu-west-1.amazonaws.com/$1/$2" $DEST
+}
+
+case $1 in
+  backup)
+    backup $2 $3
+    exit 0
+    ;;
+  restore)
+    restore $2 $3 $4
+    exit 0
+    ;;
+  *)
+    echo "s3 backup and restore tool"
+    echo "Backup:"
+    echo "sss backup bucket-name folder"
+    echo
+    echo "Restore:"
+    echo "sss restore bucket-name folder [destination]"
+    exit 0
+    ;;
+esac
+
