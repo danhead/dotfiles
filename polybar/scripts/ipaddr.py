@@ -12,5 +12,4 @@ root = ET.fromstring(s)
 ip = root.find('IP').text
 country = root.find('CountryName').text
 
-print('/ %s (%s)' % (ip, country))
-print('/ %s (%s)' % (ip, country))
+print('%s (%s)' % (ip, country))

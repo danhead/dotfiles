@@ -11,8 +11,8 @@ Folder | Description
 --- | ---
 bin | Binary files and scripts
 i3 | i3 config files
-i3blocks | i3blocks config and associated scripts
 irssi | Irssi config and theme
+polybar | polybar config and associated scripts
 termite | Termite config file and terminfo file
 vim | vimrc file and colours
 zsh | zsh config file and aliases
