@@ -7,22 +7,24 @@ PROTO=tcp
 
 if [ "$1" == "--update" ] || [ "$1" == "-u" ]; then
   echo "Updating..."
-  curl $OVPNURL > /tmp/nordvpn.zip
+  curl -L $OVPNURL --output /tmp/nordvpn.zip
   rm -f $OVPNPATH/*
   unzip -qq /tmp/nordvpn.zip -d $OVPNPATH/
   rm /tmp/nordvpn.zip
   sed -i 's,auth-user-pass,auth-user-pass '"$OVPNAUTH"',g' $OVPNPATH/*
-  echo "Done."
+  echo "Done"
   exit 0
 elif [ "$1" == "--kill" ] || [ "$1" == "-k" ]; then
-  sudo killall openvpn
+  sudo killall -q openvpn
 else
-  find $OVPNPATH -name $1
-  find $OVPNPATH -name "*$1*$PROTO*" | sort -R | tail -1 | while read file; do
-    sudo killall openvpn
-    echo "Connecting to: $file"
-    sudo /usr/sbin/openvpn --config $file &
-  done 
+  file=$(find $OVPNPATH -name "*$1*$PROTO*" | sort -R | tail -1)
+  if [ "$file" == "" ]; then
+    echo "No config found"
+    exit 1
+  fi
+  sudo killall -q openvpn
+  while pgrep -x openvpn >/dev/null; do sleep 1; done
+  sudo /usr/sbin/openvpn --config $file &
 fi
 
 exit 0
