@@ -68,7 +68,7 @@ module-margin = 4
 font-0 = fixed:pixelsize=10;2
 font-1 = FontAwesome:pixelsize=10;2
 
-modules-left = i3 bitcoin
+modules-left = i3 pacman bitcoin
 modules-right = filesystem
 
 [module/bspwm]
@@ -259,3 +259,11 @@ bar-used-foreground-4 = ${colors.ramp-4}
 bar-used-foreground-5 = ${colors.ramp-5}
 bar-used-foreground-6 = ${colors.ramp-6}
 bar-used-foreground-7 = ${colors.ramp-7}
+
+[module/pacman]
+type = custom/script
+interval = 1800
+format = <label>
+label = "%output:0:30%"
+exec = ~/.dotfiles/polybar/scripts/pacman.sh
+
