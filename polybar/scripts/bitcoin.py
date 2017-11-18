@@ -2,7 +2,9 @@
 
 import requests
 
-r = requests.get('https://blockchain.info/ticker');
-ticker = r.json()
-
-print('£%.2f' % float(ticker['GBP']['sell']))
+try:
+    r = requests.get('https://blockchain.info/ticker');
+    ticker = r.json()
+    print('£%.2f' % float(ticker['GBP']['sell']))
+except requests.exceptions.RequestException as e:
+    sys.exit(1)
