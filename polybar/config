@@ -31,8 +31,46 @@ modules-left = topmenu pavolume
 modules-center = cmus 
 modules-right = vpn ping date
 
+[bar/magnumtop]
+monitor = ${env:MONITOR:eDP-1}
+height = 25
+width = 100%
+fixed-center = true
+background = ${colors.background}
+foreground = ${colors.foreground}
+module-margin = 2
+font-0 = NotoSans\-Regular:pixelsize=10;2
+font-1 = FontAwesome:pixelsize=10;2
+
+modules-left = topmenu brightness pavolume
+modules-center = cmus
+modules-right = vpn ping battery date
+
 [bar/bottom]
 monitor = ${env:MONITOR:DVI-0}
+bottom = true
+width = 100%
+height = 25
+fixed-center = true
+background = ${colors.background}
+foreground = ${colors.foreground}
+line-size = 4
+padding-left = 0
+padding-right = 4
+module-margin = 4
+tray-position = left
+tray-padding = 5
+tray-transparent = true
+tray-background = #0063ff
+font-0 = NotoSans\-Regular:pixelsize=10;2
+font-1 = FontAwesome:pixelsize=10;2
+
+modules-left = i3
+modules-center = xwindow
+modules-right = cpu memory
+
+[bar/magnumbottom]
+monitor = ${env:MONITOR:eDP-1}
 bottom = true
 width = 100%
 height = 25
@@ -50,7 +88,7 @@ tray-background = #0063ff
 font-0 = NotoSans\-Regular:pixelsize=10;2
 font-1 = FontAwesome:pixelsize=10;2
 
-modules-left = i3
+modules-left = i3 pacman
 modules-center = xwindow
 modules-right = cpu memory
 
@@ -266,4 +304,33 @@ interval = 1800
 format = <label>
 label = "%output:0:30%"
 exec = ~/.dotfiles/polybar/scripts/pacman.sh
+
+[module/battery]
+type = internal/battery
+full-at = 99
+battery = BAT1
+adapter = ACAD
+time-format = %H:%M
+format-charging = <animation-charging> <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>
+label-discharging = Discharging %percentage%%
+label-full = Fully charged
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 750
+
+[module/brightness]
+type = custom/script
+tail = true
+format = <label>
+label = "🌑%output%%"
+exec = ~/.dotfiles/bin/brightness listen
 

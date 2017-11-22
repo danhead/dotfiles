@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+current=$(cat /sys/class/backlight/radeon_bl0/brightness)
+max=$(cat /sys/class/backlight/radeon_bl0/max_brightness)
+step=$2
+
+function setbrightness() {
+	sudo tee /sys/class/backlight/radeon_bl0/brightness <<< $1
+}
+
+function getpercentage() {
+	echo $(awk "BEGIN { pc=100*${current}/${max}; i=int(pc); print (pc-i<0.5)?i:i+1 }")
+}
+
+if [ "$1" == "up" ]; then
+	current=$((current + step))
+	if [ "$current" -gt "$max" ]; then
+		current=$max
+	fi
+	setbrightness $current >> /dev/null
+	getpercentage >> /tmp/.brightness
+elif [ "$1" == "down" ]; then
+	current=$((current - step))
+	if [ "$current" -lt "0" ]; then
+		current=0
+	fi
+	setbrightness $current >> /dev/null
+	getpercentage >> /tmp/.brightness
+elif [ "$1" == "pc" ]; then
+	getpercentage
+elif [ "$1" == "listen" ]; then
+	if [ ! -f /tmp/.brightness ]; then
+		getpercentage > /tmp/.brightness
+	fi
+	tail -f /tmp/.brightness
+fi
+
