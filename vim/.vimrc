@@ -1,11 +1,11 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
-syntax on
+set nocompatible
 set term=xterm-256color
 set laststatus=2
 set nowrap
 set nofoldenable
 set number
+set list
+set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
 set noshowmode
 set title
 set novisualbell
@@ -21,67 +21,38 @@ set textwidth=80
 set colorcolumn=81
 set backupcopy=yes
 
-filetype plugin indent on
+call plug#begin('~/.vim/plugged')
 
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'ryanoasis/vim-devicons'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'valloric/youcompleteme'
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'mattn/emmet-vim'
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'mxw/vim-jsx'
-Plugin 'Raimondi/delimitMate'
-Plugin 'tomtom/tcomment_vim'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-fugitive'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'gregsexton/MatchTag'
-Plugin 'alvan/vim-closetag'
-Plugin 'pangloss/vim-javascript'
-Plugin 'junegunn/goyo.vim'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'styled-components/vim-styled-components'
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+call plug#end()
 
 " Airline
 let g:airline_solarized_bg='dark'
 let g:airline_theme='tomorrow'
 let g:airline_powerline_fonts=1
 
-" Closetag
-let g:closetag_filenames = '*.hbs,*.html, *.js'
-
 " CtrlP
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 let g:ctrlp_custom_ignore = 'node_modules\|git'
 
-" jsx
+" JSX
 let g:jsx_ext_required = 0
 
 " Nerdtree
+let g:NERDTreeShowHidden=1
 map <F2> :NERDTree<CR>
 map <F3> :NERDTreeToggle<CR>
 
@@ -110,10 +81,11 @@ fun! SetCssCheckers()
     if localStylelint != ''
         let b:syntastic_css_stylelint_exec = fnamemodify(localStylelint, ':p')
     endif
-endf    
+endf
 
 if !exists('autocommands_loaded')
     let autocommands_loaded = 1
     autocmd FileType javascript :call SetJavascriptCheckers()
-    autocmd FileType scss :call SetCssCheckers()
-endif    
+    autocmd FileType css :call SetCssCheckers()
+endif
+
