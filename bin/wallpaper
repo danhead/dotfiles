@@ -1,0 +1,8 @@
+#!/bin/bash
+
+wallpapers=~/wallpapers
+
+ls $wallpapers | sort -R | tail -1 | while read file; do
+  /usr/bin/feh --bg-fill $wallpapers/$file
+done
+exit 0
