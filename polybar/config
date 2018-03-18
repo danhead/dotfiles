@@ -43,7 +43,7 @@ font-0 = NotoSans\-Regular:pixelsize=10;2
 font-1 = Icons:pixelsize=10;2
 
 modules-left = topmenu brightness pavolume
-modules-center = cmus
+modules-center = xwindow
 modules-right = vpn ping battery date
 
 [bar/bottom]
@@ -88,8 +88,8 @@ tray-background = #0063ff
 font-0 = NotoSans\-Regular:pixelsize=10;2
 font-1 = Icons:pixelsize=10;2
 
-modules-left = i3 pacman
-modules-center = xwindow
+modules-left = i3 pacman bitcoin
+modules-center = cmus
 modules-right = cpu memory
 
 [bar/bottom2]
@@ -322,25 +322,25 @@ adapter = ACAD
 time-format = %H:%M
 format-charging = <animation-charging> <label-charging>
 format-discharging = <ramp-capacity> <label-discharging>
-label-discharging = Discharging %percentage%%
+label-discharging = %percentage%%
 label-full = Fully charged
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
-animation-charging-3 = 
-animation-charging-4 = 
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
 animation-charging-framerate = 750
 
 [module/brightness]
 type = custom/script
 tail = true
 format = <label>
-label = "🌑%output%%"
+label = " %output%%"
 exec = ~/.dotfiles/bin/brightness listen
 
 [module/redshift]
