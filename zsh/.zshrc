@@ -7,7 +7,7 @@ antigen bundles <<EOBUNDLES
   emoji
   git
 EOBUNDLES
-antigen theme muse
+antigen theme robbyrussell
 antigen apply
 
 export PATH=$HOME/.dotfiles/bin:$PATH

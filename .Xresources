@@ -1,66 +1,69 @@
 ! Xft settings
-Xft.dpi:                    96
-Xft.antialias:              true 
-Xft.rgba:                   rgb
-Xft.hinting:                true
-Xft.hintstyle:              hintslight
+Xft.dpi: 96
+Xft.antialias: true
+Xft.hinting: true
+Xft.rgba: rgba
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcddefault
 
-! URxvt settings
-URxvt.termName:             rxvt-256color
-URxvt.depth:                32
-URxvt.geometry:             90x30
-URxvt.transparent:          false
-URxvt.fading:               0
-! URxvt.urgentOnBell:         true
-! URxvt.visualBell:           true
-URxvt.loginShell:           true
-URxvt.saveLines:            50
-URxvt.internalBorder:       3
-URxvt.lineSpace:            0
+! urxvt
+URxvt*termName: rxvt-256color
+URxvt*depth: 32
+URxvt*buffered: true
+URxvt*borderless: 1
+URxvt*loginShell: true
+URxvt*saveLines: 5000
 
 ! Fonts
-URxvt.allow_bold:           false
-URxvt*font:                 xft:Inconsolata:size=14
-! URxvt*boldFont:             xft:Inconsolata:pixelsize=14
-
-! Fix font space
-URxvt.letterSpace: -1
+URxvt*font: xft:Knack Nerd Font:pixelsize=14
+URxvt*underlineColor: #f4bf75
 
 ! Scrollbar
-URxvt.scrollStyle:          rxvt
-URxvt.scrollBar:            false
+URxvt*scrollBar: false
+Urxvt*secondaryScroll: true
 
 ! Perl extensions
-URxvt.perl-ext-common:      default,matcher
-URxvt.matcher.button:       1
-URxvt.urlLauncher:          /usr/bin/xdg-open
+URxvt.perl-ext-common: default,matcher
+URxvt.urlLauncher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
 
 ! Cursor
-URxvt.cursorBlink:          true
-URxvt.cursorColor:          #657b83
-URxvt.cursorUnderline:      false
-
-! Pointer
-URxvt.pointerBlank:         true
+URxvt*cursorBlink: true
 
 ! Colours
-*.foreground:   #cfd2cf
-*.background:   #2f2f38
-*.cursorColor:  #cfd2cf
+*.background: rgba:0039/0040/0034/e800
+*.foreground: #f8f8f2
+*.cursorColor: #f8f8f2
 
-*.color0:       #34343e
-*.color8:       #b0c4bb
-*.color1:       #9aafaa
-*.color9:       #9aafaa
-*.color2:       #759496
-*.color10:      #759496
-*.color3:       #93b3b0
-*.color11:      #93b3b0
-*.color4:       #688486
-*.color12:      #688486
-*.color5:       #668ca1
-*.color13:      #668ca1
-*.color6:       #759496
-*.color14:      #759496
-*.color7:       #b0c4bb
-*.color15: #b0c4bb
+! black
+*.color0: #272822
+*.color8: #75715e
+
+! red
+*.color1: #f92672
+*.color9: #f92672
+
+! green
+*.color2: #a6e22e
+*.color10: #a6e22e
+
+! yellow
+*.color3: #f4bf75
+*.color11: #f4bf75
+
+! blue
+*.color4: #66d9ef
+*.color12: #66d9ef
+
+! magenta
+*.color5: #ae81ff
+*.color13: #ae81ff
+
+! cyan
+*.color6: #a1efe4
+*.color14: #a1efe4
+
+! white
+*.color7: #f8f8f2
+*.color15: #f9f8f5
+
